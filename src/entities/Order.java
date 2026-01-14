@@ -18,6 +18,8 @@ public class Order {
         this.status = status;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
+        this.products = products;
+        this.customer = customer;
     }
 
     public Customer getCustomer() {

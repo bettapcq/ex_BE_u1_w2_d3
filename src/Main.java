@@ -28,8 +28,8 @@ public class Main {
         Product product7 = new Product("The Perfect Book", ProductCategory.BOOKS, 190.00);
         Product product8 = new Product("The October List", ProductCategory.BOOKS, 33.90);
 
-        ArrayList<Customer> allCustomers = new ArrayList<>();
-        Collections.addAll(allCustomers, customer1, customer2, customer3, customer4, customer5, customer6);
+        ArrayList<Product> allProducts = new ArrayList<>();
+        Collections.addAll(allProducts, product1, product2, product3, product4, product5, product6, product7, product8);
 
         Order order1 = new Order(
                 OrderStatus.PROCESSING,
@@ -64,22 +64,30 @@ public class Main {
 
         //ES2:
         List<Order> babyCategoryOrders = allOrders.stream()
-                .filter(
-                        order -> order.getProducts().stream()
-                                .anyMatch(product -> product.getCategory() == ProductCategory.BABY))
-                .toList();
+                .filter(order -> order.getProducts().stream()
+                        .anyMatch(product -> product.getCategory() == ProductCategory.BABY)).toList();
         System.out.println(babyCategoryOrders);
 
         //ES3:
-        List<Double> productsWithDiscount = allProducts.stream()
-                .filter(product -> product.getCategory() == ProductCategory.BOYS)
-                .map(product -> product.getPrice() - (product.getPrice() * 0.10)).toList();
-        System.out.println(productsWithDiscount);
+        List<Product> boysProductsWithDiscount = allProducts.stream()
+                .filter(product -> product.getCategory() == ProductCategory.BOYS).map(product -> {
+                    product.setPrice(product.getPrice() * 0.90);
+                    return product;
+                })
+                .toList();
+        System.out.println(boysProductsWithDiscount);
+
 
         //ES4:
-        List<Product> CustomersTier2Products = allOrders.stream()
-                .filter(order -> order.getCustomer() )
-                .filter()
+        List<Order> filteredOrdersByRangeOfDate = allOrders.stream()
+                .filter(order -> order.getCustomer().getTier() == 2 && order.getOrderDate().isAfter(LocalDate.of(2021, 2, 1)) && order.getOrderDate().isBefore(LocalDate.of(2021, 4, 1)))
+                .toList();
+
+        List<Product> customersTier2Products = new ArrayList<>();
+
+        for (Order order : filteredOrdersByRangeOfDate) {
+            customersTier2Products.addAll(order.getProducts());
+        }
 
     }
 
