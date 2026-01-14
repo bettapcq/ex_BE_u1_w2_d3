@@ -7,6 +7,7 @@ import java.util.List;
 
 
 public class Main {
+
     public static void main(String[] args) {
         Customer customer1 = new Customer("Angela", 3);
         Customer customer2 = new Customer("Kevin", 4);
@@ -15,6 +16,8 @@ public class Main {
         Customer customer5 = new Customer("Mike", 2);
         Customer customer6 = new Customer("Pam", 2);
 
+        ArrayList<Customer> AllCustomers = new ArrayList<>();
+        Collections.addAll(AllCustomers, customer1, customer2, customer3, customer4, customer5, customer6);
 
         Product product1 = new Product("Harry Potter", ProductCategory.BOOKS, 13.50);
         Product product2 = new Product("Sword", ProductCategory.BOYS, 20.00);
@@ -25,8 +28,8 @@ public class Main {
         Product product7 = new Product("The Perfect Book", ProductCategory.BOOKS, 190.00);
         Product product8 = new Product("The October List", ProductCategory.BOOKS, 33.90);
 
-        ArrayList<Product> allProducts = new ArrayList<>();
-        Collections.addAll(allProducts, product1, product2, product3, product4, product5, product6, product7, product8);
+        ArrayList<Customer> allCustomers = new ArrayList<>();
+        Collections.addAll(allCustomers, customer1, customer2, customer3, customer4, customer5, customer6);
 
         Order order1 = new Order(
                 OrderStatus.PROCESSING,
@@ -70,11 +73,14 @@ public class Main {
         //ES3:
         List<Double> productsWithDiscount = allProducts.stream()
                 .filter(product -> product.getCategory() == ProductCategory.BOYS)
-                .map(product -> product.getPrice() - (product.getPrice() * 10 / 100)).toList();
+                .map(product -> product.getPrice() - (product.getPrice() * 0.10)).toList();
         System.out.println(productsWithDiscount);
-    }
 
-    //ES4:
-    
+        //ES4:
+        List<Product> CustomersTier2Products = allOrders.stream()
+                .filter(order -> order.getCustomer() )
+                .filter()
+
+    }
 
 }
